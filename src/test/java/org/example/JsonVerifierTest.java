@@ -35,5 +35,17 @@ class JsonVerifierTest {
                 """;
         assertFalse(JsonVerifier.verifyJson(Invalid));
     }
+    @Test
+    void testVerifierEmptyJson(){
+        String Invalid = """
+                {}
+                """;
+        assertFalse(JsonVerifier.verifyJson(Invalid));
+    }
+    @Test
+    void testVerifierInvalidFile(){
+        String Invalid = "not a Json";
+        assertFalse(JsonVerifier.verifyJson(Invalid));
+    }
 
 }

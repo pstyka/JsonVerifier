@@ -13,18 +13,23 @@ public class JsonVerifier {
 
     public static Boolean verifyJson(String json) throws JSONException {
 
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray statementList = jsonObject
-                .getJSONObject("PolicyDocument")
-                .getJSONArray("Statement");
-        for(int i=0;i<statementList.length();i++){
-            JSONObject statement = statementList.getJSONObject(i);
-            String resourceField = statement.getString("Resource");
-            if ("*".equals(resourceField)) {
-                return false;
+        try{
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray statementList = jsonObject
+                    .getJSONObject("PolicyDocument")
+                    .getJSONArray("Statement");
+            for(int i=0;i<statementList.length();i++){
+                JSONObject statement = statementList.getJSONObject(i);
+                String resourceField = statement.getString("Resource");
+                if ("*".equals(resourceField)) {
+                    return false;
+                }
             }
+            return true;
+        } catch (JSONException e) {
+            return false;
         }
-        return true;
+
     }
     public static String readJSONFile(String path) throws IOException {
         Path p = Paths.get(path);
