@@ -47,5 +47,20 @@ class JsonVerifierTest {
         String Invalid = "not a Json";
         assertFalse(JsonVerifier.verifyJson(Invalid));
     }
+    @Test
+    void testVerifierMissingResource(){
+        String Invalid =  """
+                {
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Not resource: ""
+                            }
+                        ]
+                    }
+                }
+                """;
+        assertFalse(JsonVerifier.verifyJson(Invalid));
+    }
 
 }
